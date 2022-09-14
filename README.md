@@ -21,7 +21,7 @@ filters:
 The `hide_line` directive hides a specific line of code in an input
 cell. For example, this code:
 
-```` markdown
+```` python
 ```{python}
 def _secret(): ...
 
@@ -45,7 +45,7 @@ for i in range(3):
 The `filter_stream` directive filters lines containing specific keywords
 in cell outputs. For example, the following code:
 
-```` markdown
+```` python
 ```{python}
 #| filter_stream: FutureWarning MultiIndex
 print('\n'.join(['A line', 'Foobar baz FutureWarning blah', 
