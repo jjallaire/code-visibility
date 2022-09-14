@@ -3,9 +3,17 @@
 This extension implements some directives for filtering code and stream
 output included within a document.
 
-Use this extension within a Quarto project by first installing it:
+Use this extension within a Quarto project by first installing it from within the project working directory:
 
 ``` bash
+quarto install extension jjallaire/code-visibility
+```
+
+Then add the `code-visibility` filter to your project:
+
+```yaml
+filters:
+  - code-visibility
 ```
 
 ## `#| hide-line`
