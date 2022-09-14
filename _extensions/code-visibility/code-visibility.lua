@@ -1,20 +1,20 @@
 
 
 
--- remove any lines with the hide-line directive.
+-- remove any lines with the hide_line directive.
 function CodeBlock(el)
   if el.classes:includes('cell-code') then
     el.text = filter_lines(el.text, function(line)
-      return not line:match("#| ?hide%-line%s*$")
+      return not line:match("#| ?hide_line%s*$")
     end)
     return el
   end
 end
 
--- apply filter-stream directive to cells
+-- apply filter_stream directive to cells
 function Div(el)
   if el.classes:includes("cell") then
-    local filters = el.attributes["filter-stream"]
+    local filters = el.attributes["filter_stream"]
     if filters then
       -- process cell-code
       return pandoc.walk_block(el, {

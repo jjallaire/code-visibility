@@ -16,9 +16,9 @@ filters:
   - code-visibility
 ```
 
-## `#| hide-line`
+## `#| hide_line`
 
-The `hide-line` directive hides a specific line of code in an input
+The `hide_line` directive hides a specific line of code in an input
 cell. For example, this code:
 
 ```` markdown
@@ -26,7 +26,7 @@ cell. For example, this code:
 def _secret(): ...
 
 for i in range(3):
-    _secret() #| hide-line
+    _secret() #| hide_line
     print(i)
 ```
 ````
@@ -40,14 +40,14 @@ for i in range(3):
     print(i)
 ```
 
-## `#| filter-stream: <keyword> ...`
+## `#| filter_stream: <keyword> ...`
 
-The `filter-stream` directive filters lines containing specific keywords
+The `filter_stream` directive filters lines containing specific keywords
 in cell outputs. For example, the following code:
 
 ```` markdown
 ```{python}
-#| filter-stream: FutureWarning MultiIndex
+#| filter_stream: FutureWarning MultiIndex
 print('\n'.join(['A line', 'Foobar baz FutureWarning blah', 
                  'zig zagMultiIndex zoom', 'Another line.']))
 ```
