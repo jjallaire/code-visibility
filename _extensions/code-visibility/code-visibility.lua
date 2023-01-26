@@ -1,11 +1,8 @@
-
-
-
 -- remove any lines with the hide_line directive.
 function CodeBlock(el)
   if el.classes:includes('cell-code') then
     el.text = filter_lines(el.text, function(line)
-      return not line:match("#| ?hide_line%s*$")
+      return not (line:match("#| ?hide_line%s*$") or line:match("#>"))
     end)
     return el
   end
@@ -30,12 +27,10 @@ function Div(el)
           end
         end
       })
-      
     end
-
   end
-  
 end
+
 
 function filter_lines(text, filter)
   local lines = pandoc.List()
