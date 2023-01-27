@@ -1,5 +1,5 @@
 local str = pandoc.utils.stringify
--- local p = quarto.log.output
+local p = quarto.log.output
 
 -- remove any lines with the hide_line directive.
 function CodeBlock(el)
@@ -9,22 +9,6 @@ function CodeBlock(el)
     end)
     return el
   end
-end
-
--- function for applying comment_directive
-local function apply_cmnt_directives(comment_directive)
-  local cmnt_directive_pattern = "^" .. comment_directive
-  local line_filter = {
-    CodeBlock = function(cb)
-      if cb.classes:includes('cell-code') then
-        cb.text = filter_lines(cb.text, function(line)
-            return not line:match(cmnt_directive_pattern)
-            end)
-        return cb
-      end
-    end
-  }
-  return line_filter
 end
 
 -- function to check whether a value exists in a table
@@ -37,15 +21,33 @@ function has_value(table, value)
   return false
 end
 
+-- function for applying comment_directive
+local function apply_cmnt_directives(comment_directive)
+  local line_filter = {
+    CodeBlock = function(cb)
+      if cb.classes:includes('cell-code') then
+        for k, cd in ipairs(comment_directive) do
+          local cmnt_directive_tbl = {"#>", "//>"}
+          if has_value(cmnt_directive_tbl, str(cd)) then
+            local cmnt_directive_pattern = "^" .. str(cd)
+            cb.text = filter_lines(cb.text, function(line)
+              return not line:match(cmnt_directive_pattern)
+              end)
+          end
+        end
+        return cb
+      end
+    end
+  }
+  return line_filter
+end
+
 -- hide lines with comment directive
 function Pandoc(doc)
   local meta = doc.meta
-  local cmnt_directive_tbl = {"#>", "//>"}
-  if meta['comment-directive'] then
-    if has_value(cmnt_directive_tbl, str(meta['comment-directive'])) then
-      local comment_directive = str(meta['comment-directive'])
-      return doc:walk(apply_cmnt_directives(comment_directive))
-    end
+  local cd = meta['comment-directive']
+  if cd then
+    return doc:walk(apply_cmnt_directives(cd))
   end
 end
 
