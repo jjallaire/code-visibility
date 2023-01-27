@@ -1,23 +1,41 @@
 ---
-title: "RevealJS"
-format: revealjs
-filters:
+title: "Code Visibility"
+author: Shafayet Khan Shafee
+date: last-modified
+format: html
+comment-directive: "//>"
+filters: 
   - code-visibility
 execute: 
   echo: true
+  eval: false
 ---
 
-## Quarto
+## R
 
 ```{r}
 #| message: false
 #> This is some hidden comment which is visible in code editor
 #> but not in rendered documents
-library(dplyr) #| hide_line
+library(dplyr) 
 
+print("#>") #| hide_line
+#>
 #> more hidden comment
 mtcars %>% 
   select(mpg, am ,vs) %>% 
   group_by(vs) %>% 
   summarise(mean(mpg))
 ```
+
+## Javascript
+
+```{js}
+//> This is some hidden comment which is visible in code editor
+//> but not in rendered documents
+
+function square(x) {
+  return x * x;
+}
+```
+
